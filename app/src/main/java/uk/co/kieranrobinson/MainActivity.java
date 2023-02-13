@@ -11,10 +11,14 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SQLiteDB sqliteDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sqliteDB = new SQLiteDB(MainActivity.this);
     }
 
     public void openAddMemoryActivity(View view){
