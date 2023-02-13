@@ -15,15 +15,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Button buttonViewMap = (Button) findViewById(R.id.buttonViewMap);
-        buttonViewMap.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), MapsActivity.class);
-                view.getContext().startActivity(intent);
-            }
-        });
     }
 
     public void openAddMemoryActivity(View view){
@@ -43,10 +34,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openViewMapActivity(View view){
-        Context context = getApplicationContext();
-        int toastDuration = Toast.LENGTH_SHORT;
-        CharSequence toastText = "Feature not implemented yet";
-        Toast toast = Toast.makeText(context, toastText, toastDuration);
-        toast.show();
+        Intent intent = new Intent(view.getContext(), MapsActivity.class);
+        view.getContext().startActivity(intent);
     }
 }
