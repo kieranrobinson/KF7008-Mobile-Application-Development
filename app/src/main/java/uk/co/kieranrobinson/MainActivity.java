@@ -22,11 +22,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openAddMemoryActivity(View view){
-        Context context = getApplicationContext();
-        int toastDuration = Toast.LENGTH_SHORT;
-        CharSequence toastText = "Feature not implemented yet";
-        Toast toast = Toast.makeText(context, toastText, toastDuration);
-        toast.show();
+//        Context context = getApplicationContext();
+//        int toastDuration = Toast.LENGTH_SHORT;
+//        CharSequence toastText = "Feature not implemented yet";
+//        Toast toast = Toast.makeText(context, toastText, toastDuration);
+//        toast.show();
+        Intent intent = new Intent(view.getContext(), AddMemoryActivity.class);
+        view.getContext().startActivity(intent);
+
     }
 
     public void openViewMemoriesActivity(View view){

@@ -12,6 +12,9 @@
         android:theme="@style/Theme.KF7008MobileApplicationDevelopment"
         tools:targetApi="31">
         <activity
+            android:name=".AddMemoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".MemoriesActivity"
             android:exported="false" />
         <activity
