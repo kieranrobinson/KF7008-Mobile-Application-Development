@@ -1,8 +1,11 @@
 package uk.co.kieranrobinson;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 public class SQLiteDB extends SQLiteOpenHelper {
     private static final String DB_NAME = "sqliteDB";
@@ -33,5 +36,30 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
         db.execSQL(createTableMemory);
         db.execSQL(createTableLocation);
+
+        String insertMemoryDummyDataEntryOne = "INSERT INTO memory (memoryID, name, description) VALUES (0, 'Test Data', 'Test Description');";
+        String insertMemoryDummyDataEntryTwo = "INSERT INTO memory (memoryID, name, description) VALUES (1, 'Another Entry', 'Test Description Again');";
+        String insertMemoryDummyDataEntryThree = "INSERT INTO memory (memoryID, name, description) VALUES (2, 'Third Entry', 'Test Description Three');";
+
+
+        db.execSQL(insertMemoryDummyDataEntryOne);
+        db.execSQL(insertMemoryDummyDataEntryTwo);
+        db.execSQL(insertMemoryDummyDataEntryThree);
+    }
+
+    public ArrayList<String> getAllMemoryNames(){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Cursor cursorMemoryNames = sqLiteDatabase.rawQuery("SELECT name FROM memory;", null);
+        ArrayList<String> memoryNamesArraylist = new ArrayList<>();
+
+        if(cursorMemoryNames.moveToFirst()){
+            do{
+                String memoryName = cursorMemoryNames.getString(0);
+                memoryNamesArraylist.add(memoryName);
+            } while (cursorMemoryNames.moveToNext());
+        }
+        cursorMemoryNames.close();
+        return memoryNamesArraylist;
     }
 }
