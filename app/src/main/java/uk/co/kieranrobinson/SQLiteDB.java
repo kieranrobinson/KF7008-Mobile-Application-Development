@@ -1,5 +1,6 @@
 package uk.co.kieranrobinson;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -61,5 +62,16 @@ public class SQLiteDB extends SQLiteOpenHelper {
         }
         cursorMemoryNames.close();
         return memoryNamesArraylist;
+    }
+
+    public void addNewMemory(String memoryName, String memoryDescription){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("name", memoryName);
+        contentValues.put("description", memoryDescription);
+
+        sqLiteDatabase.insert("memory",null,contentValues);
+        sqLiteDatabase.close();
     }
 }
