@@ -78,7 +78,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
     public ArrayList<Integer> getAllMemoryID(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
-        Cursor cursorMemoryID = sqLiteDatabase.rawQuery("SELECT memoryID FROM memory WHERE isAvailable = 1;",null);
+        Cursor cursorMemoryID = sqLiteDatabase.rawQuery("SELECT memoryID FROM memory;",null);
         ArrayList<Integer> idArrayList = new ArrayList<>();
 
         if(cursorMemoryID.moveToFirst()){

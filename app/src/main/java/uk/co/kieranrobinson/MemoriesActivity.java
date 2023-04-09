@@ -15,6 +15,7 @@ public class MemoriesActivity extends AppCompatActivity {
     private SQLiteDB sqliteDB;
     ListView list;
     private Intent selectedActivityIntent;
+    ArrayList<Integer> listMemoryIDs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,15 @@ public class MemoriesActivity extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listMemoryNames);
         list.setAdapter(arrayAdapter);
 
+        listMemoryIDs = sqliteDB.getAllMemoryID();
+
+        System.out.println("------------------------");
+        System.out.println("ALL ID:");
+        for(int i=0; i<listMemoryNames.size(); i++){
+            System.out.println(listMemoryIDs.get(i));
+        }
+
+
         list.setOnItemClickListener(entryPressed);
     }
 
@@ -43,6 +53,8 @@ public class MemoriesActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             String selectedItem = (String)list.getItemAtPosition(i);
+            System.out.println("Before intent: " + listMemoryIDs.get(i));
+            selectedActivityIntent.putExtra("memoryID",listMemoryIDs.get(i));
             selectedActivityIntent.putExtra("memoryName", selectedItem);
             startActivity(selectedActivityIntent);
         }
