@@ -74,4 +74,20 @@ public class SQLiteDB extends SQLiteOpenHelper {
         sqLiteDatabase.insert("memory",null,contentValues);
         sqLiteDatabase.close();
     }
+
+    public ArrayList<Integer> getAllMemoryID(){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Cursor cursorMemoryID = sqLiteDatabase.rawQuery("SELECT memoryID FROM memory WHERE isAvailable = 1;",null);
+        ArrayList<Integer> idArrayList = new ArrayList<>();
+
+        if(cursorMemoryID.moveToFirst()){
+            do{
+                int memoryID = cursorMemoryID.getInt(0);
+                idArrayList.add(memoryID);
+            } while (cursorMemoryID.moveToNext());
+        }
+        cursorMemoryID.close();
+        return idArrayList;
+    }
 }
