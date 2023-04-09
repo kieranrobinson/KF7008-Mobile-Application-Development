@@ -43,6 +43,7 @@ public class MemoriesActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             String selectedItem = (String)list.getItemAtPosition(i);
+            selectedActivityIntent.putExtra("memoryName", selectedItem);
             startActivity(selectedActivityIntent);
         }
     };
