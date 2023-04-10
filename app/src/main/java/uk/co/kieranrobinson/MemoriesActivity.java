@@ -39,13 +39,6 @@ public class MemoriesActivity extends AppCompatActivity {
 
         listMemoryIDs = sqliteDB.getAllMemoryID();
 
-        System.out.println("------------------------");
-        System.out.println("ALL ID:");
-        for(int i=0; i<listMemoryNames.size(); i++){
-            System.out.println(listMemoryIDs.get(i));
-        }
-
-
         list.setOnItemClickListener(entryPressed);
     }
 
@@ -53,7 +46,6 @@ public class MemoriesActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             String selectedItem = (String)list.getItemAtPosition(i);
-            System.out.println("Before intent: " + listMemoryIDs.get(i));
             selectedActivityIntent.putExtra("memoryID",listMemoryIDs.get(i));
             selectedActivityIntent.putExtra("memoryName", selectedItem);
             startActivity(selectedActivityIntent);

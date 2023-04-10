@@ -90,4 +90,18 @@ public class SQLiteDB extends SQLiteOpenHelper {
         cursorMemoryID.close();
         return idArrayList;
     }
+
+    public String getMemoryDescription(int memoryID){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String memoryDescription = "No Description Available";
+        Cursor cursorMemoryDescription = sqLiteDatabase.rawQuery("SELECT description FROM memory WHERE memoryID == " + memoryID + ";", null);
+
+        if(cursorMemoryDescription.getCount() > 0){
+            cursorMemoryDescription.moveToFirst();
+            memoryDescription = cursorMemoryDescription.getString(0);
+        }
+
+        cursorMemoryDescription.close();
+        return memoryDescription;
+    }
 }

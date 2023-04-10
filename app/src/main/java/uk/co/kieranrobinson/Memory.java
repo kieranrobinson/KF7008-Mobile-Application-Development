@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 public class Memory extends AppCompatActivity {
     String memoryName;
-    int memoryId;
+    String memoryDescription;
+    int memoryID;
+    private SQLiteDB sqliteDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,13 +19,16 @@ public class Memory extends AppCompatActivity {
         setContentView(R.layout.activity_memory);
         Intent memoryIntent = getIntent();
 
+        sqliteDB = new SQLiteDB(Memory.this);
+
         memoryName = memoryIntent.getStringExtra("memoryName");
-        memoryId = memoryIntent.getIntExtra("memoryID", -1);
+        memoryID = memoryIntent.getIntExtra("memoryID", -1);
+        memoryDescription = sqliteDB.getMemoryDescription(memoryID);
 
         TextView textViewMemoryTitle = findViewById(R.id.textViewMemoryTitle);
         textViewMemoryTitle.setText(memoryName);
 
-        TextView textViewSelectedMemoryId = findViewById(R.id.textViewSelectedMemoryId);
-        textViewSelectedMemoryId.setText(String.valueOf(memoryId));
+        TextView textViewSelectedMemoryDescription = findViewById(R.id.textViewSelectedMemoryDescription);
+        textViewSelectedMemoryDescription.setText(String.valueOf(memoryDescription));
     }
 }
