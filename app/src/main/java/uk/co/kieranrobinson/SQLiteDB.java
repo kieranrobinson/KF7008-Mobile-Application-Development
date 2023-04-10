@@ -75,6 +75,18 @@ public class SQLiteDB extends SQLiteOpenHelper {
         sqLiteDatabase.close();
     }
 
+    public void addNewLocation(int memoryID, double longitude, double latitude){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("locationID", memoryID);
+        contentValues.put("longitude", longitude);
+        contentValues.put("latitude", latitude);
+
+        sqLiteDatabase.insert("location",null,contentValues);
+        sqLiteDatabase.close();
+    }
+
     public ArrayList<Integer> getAllMemoryID(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
