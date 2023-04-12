@@ -116,4 +116,17 @@ public class SQLiteDB extends SQLiteOpenHelper {
         cursorMemoryDescription.close();
         return memoryDescription;
     }
+
+    public int getLastMemoryId(){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        int memoryID = -1;
+        Cursor cursorMemoryID = sqLiteDatabase.rawQuery("SELECT memoryID FROM memory ORDER BY memoryID DESC LIMIT 1;",null);
+
+        if(cursorMemoryID.getCount() > 0){
+            cursorMemoryID.moveToFirst();
+            memoryID = cursorMemoryID.getInt(0);
+        }
+        cursorMemoryID.close();
+        return memoryID;
+    }
 }

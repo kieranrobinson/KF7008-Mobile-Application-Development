@@ -27,8 +27,6 @@ public class AddMemoryActivity extends AppCompatActivity {
 
         sqliteDB.addNewMemory(memoryName.getText().toString(), memoryDescription.getText().toString());
 
-        //TODO: Get highest ID of all memories
-
         //TODO: Add current location to memory with highest ID using addNewLocation()
     }
 }
