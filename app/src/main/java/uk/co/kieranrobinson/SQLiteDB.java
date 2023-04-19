@@ -122,6 +122,20 @@ public class SQLiteDB extends SQLiteOpenHelper {
         return memoryLongitude;
     }
 
+    public String getMemoryName(int memoryID){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String memoryName = "No Name Available";
+        Cursor cursorMemoryName = sqLiteDatabase.rawQuery("SELECT name FROM memory WHERE memoryID == " + memoryID + ";", null);
+
+        if(cursorMemoryName.getCount() > 0){
+            cursorMemoryName.moveToFirst();
+            memoryName = cursorMemoryName.getString(0);
+        }
+
+        cursorMemoryName.close();
+        return memoryName;
+    }
+
     public String getMemoryDescription(int memoryID){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String memoryDescription = "No Description Available";

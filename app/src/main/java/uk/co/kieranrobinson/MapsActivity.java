@@ -89,6 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 System.out.println("Map Enabled");
             } else {
                 //Permission Refused
+                //TODO: Handle permissions refused
                 System.out.println("Permissions Refused");
             }
 
@@ -101,8 +102,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for(int i=1; i<=noOfMarkers; i++){
             double longitude = sqliteDB.getMemoryLongitude(i);
             double latitude = sqliteDB.getMemoryLatitude(i);
+            String memoryName = sqliteDB.getMemoryName(i);
             LatLng location = new LatLng(latitude, longitude);
-            mMap.addMarker(new MarkerOptions().position(location).title("Test"));
+            mMap.addMarker(new MarkerOptions().position(location).title(memoryName));
         }
     }
 }
