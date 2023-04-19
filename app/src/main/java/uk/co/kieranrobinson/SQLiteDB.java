@@ -94,6 +94,34 @@ public class SQLiteDB extends SQLiteOpenHelper {
         return idArrayList;
     }
 
+    public double getMemoryLatitude(int memoryID){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Cursor cursorMemoryLatitude = sqLiteDatabase.rawQuery("SELECT latitude FROM location WHERE locationID == " + memoryID + ";", null);
+        double memoryLatitude = -1;
+        if(cursorMemoryLatitude.moveToFirst()){
+            do{
+                memoryLatitude = cursorMemoryLatitude.getDouble(0);
+            } while(cursorMemoryLatitude.moveToNext());
+        }
+        cursorMemoryLatitude.close();
+        return memoryLatitude;
+    }
+
+    public double getMemoryLongitude(int memoryID){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        Cursor cursorMemoryLongitude = sqLiteDatabase.rawQuery("SELECT longitude FROM location WHERE locationID == " + memoryID + ";", null);
+        double memoryLongitude = -1;
+        if(cursorMemoryLongitude.moveToFirst()){
+            do{
+                memoryLongitude = cursorMemoryLongitude.getDouble(0);
+            } while(cursorMemoryLongitude.moveToNext());
+        }
+        cursorMemoryLongitude.close();
+        return memoryLongitude;
+    }
+
     public String getMemoryDescription(int memoryID){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String memoryDescription = "No Description Available";
