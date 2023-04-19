@@ -37,15 +37,6 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
         db.execSQL(createTableMemory);
         db.execSQL(createTableLocation);
-
-        String insertMemoryDummyDataEntryOne = "INSERT INTO memory (memoryID, name, description) VALUES (0, 'Test Data', 'Test Description');";
-        String insertMemoryDummyDataEntryTwo = "INSERT INTO memory (memoryID, name, description) VALUES (1, 'Another Entry', 'Test Description Again');";
-        String insertMemoryDummyDataEntryThree = "INSERT INTO memory (memoryID, name, description) VALUES (2, 'Third Entry', 'Test Description Three');";
-
-
-        db.execSQL(insertMemoryDummyDataEntryOne);
-        db.execSQL(insertMemoryDummyDataEntryTwo);
-        db.execSQL(insertMemoryDummyDataEntryThree);
     }
 
     public ArrayList<String> getAllMemoryNames(){

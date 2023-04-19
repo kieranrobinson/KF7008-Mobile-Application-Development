@@ -15,6 +15,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import android.os.Bundle;
 import android.os.Looper;
+import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ public class AddMemoryActivity extends AppCompatActivity {
     private SQLiteDB sqliteDB;
     FusedLocationProviderClient fusedLocationProviderClient;
     int PERMISSIONID;
+    static double recentLongitude;
+    static double recentLatitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +56,21 @@ public class AddMemoryActivity extends AppCompatActivity {
 
         //TODO: Add current location to memory with highest ID using addNewLocation()
         getLastLocation();
+
+        int lastMemoryId = sqliteDB.getLastMemoryId();
+        sqliteDB.addNewLocation(lastMemoryId, recentLongitude, recentLatitude);
     }
 
     //Missing permission warning suppressed as if statement checks for this already
     @SuppressLint("MissingPermission")
     private void getLastLocation(){
+        Double longitude = null;
+        Double latitude = null;
+
         if(checkPermissions()){
             if(isLocationEnabled()){
                 //TODO: Do location logic
+
                 fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {
@@ -71,8 +81,12 @@ public class AddMemoryActivity extends AppCompatActivity {
                         } else {
                             System.out.println("Latitude: " + location.getLatitude());
                             System.out.println("Longitude: " + location.getLongitude());
+
+                            AddMemoryActivity.recentLongitude = location.getLongitude();
+                            AddMemoryActivity.recentLatitude = location.getLatitude();
                         }
                     }
+
                 });
 
                 System.out.println("LOCATION ENABLED");
