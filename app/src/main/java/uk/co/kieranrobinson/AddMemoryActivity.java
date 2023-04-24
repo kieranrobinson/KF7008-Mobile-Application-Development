@@ -59,6 +59,7 @@ public class AddMemoryActivity extends AppCompatActivity {
 
         int lastMemoryId = sqliteDB.getLastMemoryId();
         sqliteDB.addNewLocation(lastMemoryId, recentLongitude, recentLatitude);
+        System.out.println("LAST MEMORY ID: " + lastMemoryId);
     }
 
     //Missing permission warning suppressed as if statement checks for this already

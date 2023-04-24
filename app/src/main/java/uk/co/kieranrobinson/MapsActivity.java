@@ -8,6 +8,7 @@ import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -28,6 +30,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import uk.co.kieranrobinson.databinding.ActivityMapsBinding;
@@ -89,6 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
 
         placeLocationMarkers();
+        placeAllGeofences();
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -148,11 +152,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    private void placeAllGeofences(){
+        ArrayList<Integer> memoryIds = sqliteDB.getAllMemoryID();
+        for(int i=0; i<memoryIds.size(); i++){
+            int memoryId = memoryIds.get(i);
+            double memoryLatitude = sqliteDB.getMemoryLatitude(memoryId);
+            double memoryLongitude = sqliteDB.getMemoryLongitude(memoryId);
+            LatLng memoryLatLng = new LatLng(memoryLatitude,memoryLongitude);
+            placeGeofence(memoryLatLng, 150);
+            displayCircle(memoryLatLng, 150);
+        }
+    }
+
+    private void displayCircle(LatLng latLng, float radius) {
+        CircleOptions circleOptions = new CircleOptions();
+        circleOptions.center(latLng);
+        circleOptions.radius(radius);
+        circleOptions.strokeColor(Color.argb(255, 255, 0, 0));
+        circleOptions.fillColor(Color.argb(100, 255, 0, 0));
+        circleOptions.strokeWidth(4);
+        mMap.addCircle(circleOptions);
+    }
+
     private void placeGeofence(LatLng latLng, float radius){
         String geofenceID = Integer.toString(geofenceId);
         geofenceId++;
 
-        Geofence geofence = geofenceHelper.getGeofence(geofenceID,latLng,radius,Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_DWELL | Geofence.GEOFENCE_TRANSITION_EXIT);
+        Geofence geofence = geofenceHelper.getGeofence(geofenceID,latLng,radius);
         GeofencingRequest geofencingRequest = geofenceHelper.getGeofencingRequest(geofence);
         PendingIntent pendingIntent = geofenceHelper.getPendingIntent();
         if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
@@ -163,7 +189,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        System.out.println("Geofence successfully inserted");
+                        System.out.println("Geofence successfully inserted at Latitude:" + latLng.latitude + " Longitude:" + latLng.longitude);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

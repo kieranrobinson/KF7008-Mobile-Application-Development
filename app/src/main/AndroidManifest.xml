@@ -64,6 +64,7 @@
 
             <!-- Any inner elements would go here. -->
         </service>
+        <receiver android:name=".GeofenceReceiver"/>
     </application>
 
 </manifest>

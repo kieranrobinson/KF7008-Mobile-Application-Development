@@ -1,5 +1,7 @@
 package uk.co.kieranrobinson;
 
+import static com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_DWELL;
+
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -20,11 +22,21 @@ public class GeofenceHelper extends ContextWrapper {
                 .setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER)
                 .build();
     }
-    public Geofence getGeofence(String id, LatLng latLng, float radius, int transitionTypes){
+//    public Geofence getGeofence(String id, LatLng latLng, float radius, int transitionTypes){
+//        return new Geofence.Builder()
+//                .setCircularRegion(latLng.latitude, latLng.longitude, radius)
+//                .setRequestId(id)
+//                .setTransitionTypes(transitionTypes)
+//                .setExpirationDuration(Geofence.NEVER_EXPIRE)
+//                .setLoiteringDelay(20000)
+//                .build();
+//    }
+
+    public Geofence getGeofence(String id, LatLng latLng, float radius){
         return new Geofence.Builder()
                 .setCircularRegion(latLng.latitude, latLng.longitude, radius)
                 .setRequestId(id)
-                .setTransitionTypes(transitionTypes)
+                .setTransitionTypes(GEOFENCE_TRANSITION_DWELL)
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 .setLoiteringDelay(20000)
                 .build();

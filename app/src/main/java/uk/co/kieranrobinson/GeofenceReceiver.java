@@ -16,6 +16,7 @@ public class GeofenceReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        System.out.println("RAN RAN RAN");
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if(geofencingEvent.hasError()){
             String error = GeofenceStatusCodes.getStatusCodeString(geofencingEvent.getErrorCode());
@@ -23,6 +24,7 @@ public class GeofenceReceiver extends BroadcastReceiver {
             return;
         }
         List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
+        System.out.println(triggeringGeofences);
         Toast.makeText(context, "Geofence Accessed", Toast.LENGTH_SHORT).show();
     }
 }
