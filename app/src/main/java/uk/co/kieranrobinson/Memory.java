@@ -23,8 +23,9 @@ public class Memory extends AppCompatActivity {
 
         sqliteDB = new SQLiteDB(Memory.this);
 
-        memoryName = memoryIntent.getStringExtra("memoryName");
+
         memoryID = memoryIntent.getIntExtra("memoryID", -1);
+        memoryName = sqliteDB.getMemoryName(memoryID);
         memoryDescription = sqliteDB.getMemoryDescription(memoryID);
         memoryLatitude = sqliteDB.getMemoryLatitude(memoryID);
         memoryLongitude = sqliteDB.getMemoryLongitude(memoryID);
