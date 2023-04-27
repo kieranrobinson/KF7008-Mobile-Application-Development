@@ -23,6 +23,13 @@ public class GeofenceReceiver extends BroadcastReceiver {
             Log.d("Error: ",error);
             return;
         }
+
+        int geofenceTransition = geofencingEvent.getGeofenceTransition();
+        if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL){
+            Notification notification = new Notification(context);
+            notification.sendNotification(1);
+        }
+
         List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
         System.out.println(triggeringGeofences);
         Toast.makeText(context, "Geofence Accessed", Toast.LENGTH_SHORT).show();
