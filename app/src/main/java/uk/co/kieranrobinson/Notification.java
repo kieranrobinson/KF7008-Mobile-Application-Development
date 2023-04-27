@@ -11,6 +11,8 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import java.util.Random;
+
 public class Notification extends ContextWrapper {
     private String channelName = "NotificationName";
     private String channelID = "NotificationID";
@@ -36,7 +38,7 @@ public class Notification extends ContextWrapper {
         }
     }
 
-    public void sendNotification(int memoryID){
+    public void sendNotification(int memoryID, String notificationTitle, String notificationBody){
         Intent intent = new Intent(this, Memory.class);
         intent.putExtra("memoryID",memoryID);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -45,7 +47,7 @@ public class Notification extends ContextWrapper {
         android.app.Notification notification = new NotificationCompat.Builder(this, channelID)
                 .setContentTitle("You are near a memory")
                 .setContentText("Memory test text")
-                .setStyle(new NotificationCompat.BigTextStyle().setSummaryText("Summary Text").setBigContentTitle("Title").bigText("Body"))
+                .setStyle(new NotificationCompat.BigTextStyle().setSummaryText("Memory Tracker").setBigContentTitle(notificationTitle).bigText(notificationBody))
                 //Set notification icon
                 .setSmallIcon(com.google.android.gms.base.R.drawable.common_google_signin_btn_text_light_focused)
                 //Notification priority required for devices that are below API 25
@@ -53,6 +55,6 @@ public class Notification extends ContextWrapper {
                 .setContentIntent(pendingIntent)
                 .build();
 
-        NotificationManagerCompat.from(this).notify(1, notification);
+        NotificationManagerCompat.from(this).notify(new Random().nextInt(), notification);
     }
 }
