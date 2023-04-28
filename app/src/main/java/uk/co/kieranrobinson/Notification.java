@@ -59,6 +59,7 @@ public class Notification extends ContextWrapper {
                 .setSmallIcon(com.google.android.gms.base.R.drawable.common_google_signin_btn_text_light_focused)
                 //Notification priority required for devices that are below API 25
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
                 .build();
 
