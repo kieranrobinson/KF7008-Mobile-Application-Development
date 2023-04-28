@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sqliteDB = new SQLiteDB(MainActivity.this);
+
+        getSupportActionBar().hide();
     }
 
     public void openAddMemoryActivity(View view){

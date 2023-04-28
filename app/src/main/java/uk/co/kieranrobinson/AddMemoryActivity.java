@@ -46,6 +46,7 @@ public class AddMemoryActivity extends AppCompatActivity {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
+        getSupportActionBar().hide();
     }
 
     public void addMemory(View view){
