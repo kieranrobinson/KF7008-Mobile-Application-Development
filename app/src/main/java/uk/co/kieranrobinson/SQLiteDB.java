@@ -32,7 +32,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
     }
 
     public void setupDatabase(SQLiteDatabase db){
-        String createTableMemory = "CREATE TABLE IF NOT EXISTS memory (memoryID INTEGER primary key autoincrement, name TEXT NOT NULL, description TEXT, locationID INTEGER, FOREIGN KEY(locationID) REFERENCES location(locationID));";
+        String createTableMemory = "CREATE TABLE IF NOT EXISTS memory (memoryID INTEGER primary key autoincrement, name TEXT NOT NULL, description TEXT, date TEXT, locationID INTEGER, FOREIGN KEY(locationID) REFERENCES location(locationID));";
         String createTableLocation = "CREATE TABLE IF NOT EXISTS location (locationID INTEGER primary key autoincrement, latitude TEXT NOT NULL, longitude TEXT NOT NULL);";
 
         db.execSQL(createTableMemory);
@@ -55,12 +55,13 @@ public class SQLiteDB extends SQLiteOpenHelper {
         return memoryNamesArraylist;
     }
 
-    public void addNewMemory(String memoryName, String memoryDescription){
+    public void addNewMemory(String memoryName, String memoryDescription, String date){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("name", memoryName);
         contentValues.put("description", memoryDescription);
+        contentValues.put("date", date);
 
         sqLiteDatabase.insert("memory",null,contentValues);
         sqLiteDatabase.close();

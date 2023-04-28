@@ -53,7 +53,7 @@ public class AddMemoryActivity extends AppCompatActivity {
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Add Memory");
 
         buttonDatePicker = findViewById(R.id.buttonDatePicker);
         textViewSelectedDate = findViewById(R.id.textViewSelectedDate);
@@ -87,7 +87,7 @@ public class AddMemoryActivity extends AppCompatActivity {
         EditText memoryName = (EditText) findViewById(R.id.editTextMemoryName);
         EditText memoryDescription = (EditText) findViewById(R.id.editTextMemoryDescription);
 
-        sqliteDB.addNewMemory(memoryName.getText().toString(), memoryDescription.getText().toString());
+        sqliteDB.addNewMemory(memoryName.getText().toString(), memoryDescription.getText().toString(), textViewSelectedDate.getText().toString());
 
         getLastLocation();
         int lastMemoryId = sqliteDB.getLastMemoryId();
@@ -118,10 +118,7 @@ public class AddMemoryActivity extends AppCompatActivity {
                             AddMemoryActivity.recentLatitude = location.getLatitude();
                         }
                     }
-
                 });
-
-                System.out.println("LOCATION ENABLED");
             }
         }
         else{

@@ -27,7 +27,7 @@ public class MemoriesActivity extends AppCompatActivity {
         sqliteDB = new SQLiteDB(MemoriesActivity.this);
 
         setupListview();
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Memories");
     }
 
     private void setupListview(){
