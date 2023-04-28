@@ -3,6 +3,7 @@ package uk.co.kieranrobinson;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -39,10 +40,16 @@ public class Notification extends ContextWrapper {
     }
 
     public void sendNotification(int memoryID, String notificationTitle, String notificationBody){
-        Intent intent = new Intent(this, Memory.class);
+        Intent intent = new Intent(getApplicationContext(), Memory.class);
         intent.putExtra("memoryID",memoryID);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
+        stackBuilder.addNextIntentWithParentStack(intent);
+        PendingIntent pendingIntent =
+                stackBuilder.getPendingIntent(0,
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
 
         android.app.Notification notification = new NotificationCompat.Builder(this, channelID)
                 .setContentTitle("You are near a memory")

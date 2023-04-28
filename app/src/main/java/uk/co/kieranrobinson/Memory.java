@@ -42,4 +42,10 @@ public class Memory extends AppCompatActivity {
         TextView textViewMemoryLongitude = findViewById(R.id.textViewLongitude);
         textViewMemoryLongitude.setText(String.valueOf(memoryLongitude));
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
