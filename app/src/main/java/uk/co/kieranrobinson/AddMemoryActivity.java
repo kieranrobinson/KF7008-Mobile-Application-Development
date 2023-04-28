@@ -55,9 +55,7 @@ public class AddMemoryActivity extends AppCompatActivity {
 
         sqliteDB.addNewMemory(memoryName.getText().toString(), memoryDescription.getText().toString());
 
-        //TODO: Add current location to memory with highest ID using addNewLocation()
         getLastLocation();
-
         int lastMemoryId = sqliteDB.getLastMemoryId();
         sqliteDB.addNewLocation(lastMemoryId, recentLongitude, recentLatitude);
         System.out.println("LAST MEMORY ID: " + lastMemoryId);
@@ -71,8 +69,6 @@ public class AddMemoryActivity extends AppCompatActivity {
 
         if(checkPermissions()){
             if(isLocationEnabled()){
-                //TODO: Do location logic
-
                 fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {

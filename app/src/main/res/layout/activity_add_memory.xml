@@ -20,11 +20,10 @@
 
     <EditText
         android:id="@+id/editTextMemoryName"
-        android:layout_width="300dp"
-        android:layout_height="70dp"
+        android:layout_width="313dp"
+        android:layout_height="51dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Memory Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -39,18 +38,17 @@
         android:text="Memory Description:"
         app:layout_constraintBottom_toTopOf="@+id/editTextMemoryDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintHorizontal_bias="0.323"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/editTextMemoryDescription"
-        android:layout_width="304dp"
-        android:layout_height="98dp"
+        android:layout_width="310dp"
+        android:layout_height="54dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Memory Description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -65,9 +63,10 @@
         android:text="Memory Will Be Added At Current Location"
         app:layout_constraintBottom_toTopOf="@+id/buttonSubmitForm"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936" />
+        app:layout_constraintVertical_bias="0.986" />
 
     <Button
         android:id="@+id/buttonSubmitForm"
