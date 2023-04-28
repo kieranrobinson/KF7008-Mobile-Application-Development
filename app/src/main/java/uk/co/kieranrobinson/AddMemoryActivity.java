@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -17,7 +18,10 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.util.Pair;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -29,6 +33,7 @@ import com.google.android.gms.tasks.Task;
 
 
 import java.io.Console;
+import java.util.Calendar;
 
 public class AddMemoryActivity extends AppCompatActivity {
     private SQLiteDB sqliteDB;
@@ -36,6 +41,8 @@ public class AddMemoryActivity extends AppCompatActivity {
     int PERMISSIONID;
     static double recentLongitude;
     static double recentLatitude;
+    private Button buttonDatePicker;
+    private TextView textViewSelectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,33 @@ public class AddMemoryActivity extends AppCompatActivity {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getLastLocation();
         getSupportActionBar().hide();
+
+        buttonDatePicker = findViewById(R.id.buttonDatePicker);
+        textViewSelectedDate = findViewById(R.id.textViewSelectedDate);
+
+        buttonDatePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        AddMemoryActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                                textViewSelectedDate.setText(dayOfMonth + "-" + (month+1) + "-" + year);
+                            }
+                        },
+                        year,
+                        month,
+                        day
+                );
+                datePickerDialog.show();
+            }
+        });
     }
 
     public void addMemory(View view){
