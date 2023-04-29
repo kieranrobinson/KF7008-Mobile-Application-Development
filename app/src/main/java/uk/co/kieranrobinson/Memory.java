@@ -13,6 +13,7 @@ public class Memory extends AppCompatActivity {
     double memoryLongitude;
     double memoryLatitude;
     int memoryID;
+    String memoryDate;
     private SQLiteDB sqliteDB;
 
     @Override
@@ -23,12 +24,13 @@ public class Memory extends AppCompatActivity {
 
         sqliteDB = new SQLiteDB(Memory.this);
 
-
         memoryID = memoryIntent.getIntExtra("memoryID", -1);
         memoryName = sqliteDB.getMemoryName(memoryID);
         memoryDescription = sqliteDB.getMemoryDescription(memoryID);
         memoryLatitude = sqliteDB.getMemoryLatitude(memoryID);
         memoryLongitude = sqliteDB.getMemoryLongitude(memoryID);
+        memoryDate = sqliteDB.getMemoryDate(memoryID);
+
 
         TextView textViewMemoryTitle = findViewById(R.id.textViewMemoryTitle);
         textViewMemoryTitle.setText(memoryName);
@@ -41,6 +43,9 @@ public class Memory extends AppCompatActivity {
 
         TextView textViewMemoryLongitude = findViewById(R.id.textViewLongitude);
         textViewMemoryLongitude.setText(String.valueOf(memoryLongitude));
+
+        TextView textViewMemoryDate = findViewById(R.id.textViewDate);
+        textViewMemoryDate.setText(String.valueOf(memoryDate));
     }
 
     @Override

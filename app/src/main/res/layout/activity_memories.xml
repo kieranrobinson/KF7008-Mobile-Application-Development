@@ -15,11 +15,11 @@
         android:inputType="textPersonName" />
 
 
-        <ListView
-            android:id="@+id/listMemories"
-            android:layout_width="317dp"
-            android:layout_height="566dp"
-            android:layout_below="@+id/editTextSearch"/>
+    <ListView
+        android:id="@+id/listMemories"
+        android:layout_width="317dp"
+        android:layout_height="566dp"
+        android:layout_below="@+id/editTextSearch"/>
 
 
 </RelativeLayout>

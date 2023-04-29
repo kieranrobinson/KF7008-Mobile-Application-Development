@@ -163,4 +163,18 @@ public class SQLiteDB extends SQLiteOpenHelper {
         cursorMemoryID.close();
         return memoryID;
     }
+
+    public String getMemoryDate(int memoryID){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String memoryDate = "No Date Available";
+        Cursor cursorMemoryDate = sqLiteDatabase.rawQuery("SELECT date FROM memory WHERE memoryID == " + memoryID + ";", null);
+
+        if(cursorMemoryDate.getCount() > 0){
+            cursorMemoryDate.moveToFirst();
+            memoryDate = cursorMemoryDate.getString(0);
+        }
+
+        cursorMemoryDate.close();
+        return memoryDate;
+    }
 }
