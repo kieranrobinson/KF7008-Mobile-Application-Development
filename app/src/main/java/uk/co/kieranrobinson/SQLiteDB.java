@@ -52,6 +52,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
             } while (cursorMemoryNames.moveToNext());
         }
         cursorMemoryNames.close();
+        sqLiteDatabase.close();
         return memoryNamesArraylist;
     }
 
@@ -92,6 +93,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
             } while (cursorMemoryID.moveToNext());
         }
         cursorMemoryID.close();
+        sqLiteDatabase.close();
         return idArrayList;
     }
 
@@ -106,6 +108,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
             } while(cursorMemoryLatitude.moveToNext());
         }
         cursorMemoryLatitude.close();
+        sqLiteDatabase.close();
         return memoryLatitude;
     }
 
@@ -120,6 +123,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
             } while(cursorMemoryLongitude.moveToNext());
         }
         cursorMemoryLongitude.close();
+        sqLiteDatabase.close();
         return memoryLongitude;
     }
 
@@ -134,6 +138,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
         }
 
         cursorMemoryName.close();
+        sqLiteDatabase.close();
         return memoryName;
     }
 
@@ -148,6 +153,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
         }
 
         cursorMemoryDescription.close();
+        sqLiteDatabase.close();
         return memoryDescription;
     }
 
@@ -161,6 +167,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
             memoryID = cursorMemoryID.getInt(0);
         }
         cursorMemoryID.close();
+        sqLiteDatabase.close();
         return memoryID;
     }
 
@@ -175,6 +182,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
         }
 
         cursorMemoryDate.close();
+        sqLiteDatabase.close();
         return memoryDate;
     }
 }
