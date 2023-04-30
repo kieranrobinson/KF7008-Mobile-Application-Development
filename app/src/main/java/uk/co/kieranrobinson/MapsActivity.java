@@ -87,14 +87,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMyLocationEnabled(true);
 
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        LatLng newcastle = new LatLng(54.9783, 1.6178);
 
         placeLocationMarkers();
         placeAllGeofences();
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(newcastle));
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
@@ -160,7 +158,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             double memoryLongitude = sqliteDB.getMemoryLongitude(memoryId);
             LatLng memoryLatLng = new LatLng(memoryLatitude,memoryLongitude);
             placeGeofence(memoryLatLng, 150);
-            displayCircle(memoryLatLng, 150);
+
+            //Debugging method for geofences, which places a circle on the map so you can see the boundaries of geofences.
+            //displayCircle(memoryLatLng, 150);
         }
     }
 

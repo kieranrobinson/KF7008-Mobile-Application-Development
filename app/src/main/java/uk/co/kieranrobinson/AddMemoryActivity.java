@@ -86,13 +86,21 @@ public class AddMemoryActivity extends AppCompatActivity {
     public void addMemory(View view){
         EditText memoryName = (EditText) findViewById(R.id.editTextMemoryName);
         EditText memoryDescription = (EditText) findViewById(R.id.editTextMemoryDescription);
-
-        sqliteDB.addNewMemory(memoryName.getText().toString(), memoryDescription.getText().toString(), textViewSelectedDate.getText().toString());
+        int lastMemoryId = sqliteDB.getLastMemoryId();
 
         getLastLocation();
-        int lastMemoryId = sqliteDB.getLastMemoryId();
-        sqliteDB.addNewLocation(lastMemoryId, recentLongitude, recentLatitude);
-        System.out.println("LAST MEMORY ID: " + lastMemoryId);
+
+
+        if(!memoryName.getText().toString().equals("") && !memoryDescription.getText().toString().equals("") && !textViewSelectedDate.getText().toString().equals("UNSELECTED")){
+            sqliteDB.addNewMemory(memoryName.getText().toString(), memoryDescription.getText().toString(), textViewSelectedDate.getText().toString());
+            sqliteDB.addNewLocation(lastMemoryId, recentLongitude, recentLatitude);
+            finish();
+        } else {
+            //TODO: Implement error message TextViews
+            System.out.println("ERROR");
+        }
+
+
     }
 
     //Missing permission warning suppressed as if statement checks for this already

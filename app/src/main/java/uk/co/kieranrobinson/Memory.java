@@ -38,12 +38,6 @@ public class Memory extends AppCompatActivity {
         TextView textViewSelectedMemoryDescription = findViewById(R.id.textViewSelectedMemoryDescription);
         textViewSelectedMemoryDescription.setText(String.valueOf(memoryDescription));
 
-        TextView textViewMemoryLatitude = findViewById(R.id.textViewLatitude);
-        textViewMemoryLatitude.setText(String.valueOf(memoryLatitude));
-
-        TextView textViewMemoryLongitude = findViewById(R.id.textViewLongitude);
-        textViewMemoryLongitude.setText(String.valueOf(memoryLongitude));
-
         TextView textViewMemoryDate = findViewById(R.id.textViewDate);
         textViewMemoryDate.setText(String.valueOf(memoryDate));
     }
