@@ -59,6 +59,7 @@ public class MemoriesActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //When text is changed within searchbar update the list of memories
                 (MemoriesActivity.this).arrayAdapter.getFilter().filter(charSequence);
             }
 
@@ -72,6 +73,7 @@ public class MemoriesActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener entryPressed = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            //When item is selected from listview open matching memory
             String selectedItem = (String)list.getItemAtPosition(i);
             selectedActivityIntent.putExtra("memoryID",listMemoryIDs.get(i));
             startActivity(selectedActivityIntent);

@@ -70,17 +70,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        //Runs when map is loaded and sets up geofences, location markers etc.
+
         mMap = googleMap;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, COARSE_LOCATION_ACCESS_REQUEST_CODE);
-
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             System.out.println("No permissions");
             return;
         }
@@ -96,6 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
+                //When a marker is clicked load the memory page associated with the marker
                 String markerName = marker.getTitle();
                 String markerId = marker.getId();
                 //Remove alphabetic characters from marker id
@@ -129,7 +123,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 System.out.println("Map Enabled");
             } else {
                 //Permission Refused
-                //TODO: Handle permissions refused
                 System.out.println("Permissions Refused");
             }
 
@@ -137,6 +130,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void placeLocationMarkers(){
+        //Place map pins where memories have been added on map
         System.out.println("Last id is " + sqliteDB.getLastMemoryId());
         int noOfMarkers = sqliteDB.getLastMemoryId();
         for(int i=1; i<=noOfMarkers; i++){
@@ -151,6 +145,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void placeAllGeofences(){
+        //Place geofences around memories locations on the map, which is used to trigger notifications when a user is located within a geofence.
         ArrayList<Integer> memoryIds = sqliteDB.getAllMemoryID();
         for(int i=0; i<memoryIds.size(); i++){
             int memoryId = memoryIds.get(i);
@@ -165,6 +160,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void displayCircle(LatLng latLng, float radius) {
+        //Debugging method for geofences, which places a circle on the map so you can see the boundaries of geofences.
         CircleOptions circleOptions = new CircleOptions();
         circleOptions.center(latLng);
         circleOptions.radius(radius);
@@ -175,6 +171,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void placeGeofence(LatLng latLng, float radius){
+        //Place a geofence at specified location
         String geofenceID = Integer.toString(geofenceId);
         geofenceId++;
 

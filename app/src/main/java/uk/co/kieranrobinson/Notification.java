@@ -20,12 +20,14 @@ public class Notification extends ContextWrapper {
 
     public Notification(Context base){
         super(base);
+        //Create notification channels if SDK version is above 26, as those versions requires channels
         if (Build.VERSION.SDK_INT >= 26){
             createNotificationChannels();
         }
     }
 
     private void createNotificationChannels(){
+        //Check SDK version and setup notification channels
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(channelID, channelName, NotificationManager.IMPORTANCE_DEFAULT);
 
@@ -39,11 +41,13 @@ public class Notification extends ContextWrapper {
         }
     }
 
+    //Build and send notification to user
     public void sendNotification(int memoryID, String notificationTitle, String notificationBody){
         Intent intent = new Intent(getApplicationContext(), Memory.class);
         intent.putExtra("memoryID",memoryID);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+        //TaskStackBuilder so maintian flow of navigation from notification, so back button returns to main menu rather than closing app
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
         stackBuilder.addNextIntentWithParentStack(intent);
         PendingIntent pendingIntent =
@@ -51,6 +55,7 @@ public class Notification extends ContextWrapper {
                         PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
 
+        //Build notification
         android.app.Notification notification = new NotificationCompat.Builder(this, channelID)
                 .setContentTitle("You are near a memory")
                 .setContentText("Memory test text")
@@ -63,6 +68,7 @@ public class Notification extends ContextWrapper {
                 .setContentIntent(pendingIntent)
                 .build();
 
+        //Send notification
         NotificationManagerCompat.from(this).notify(new Random().nextInt(), notification);
     }
 }

@@ -61,6 +61,7 @@ public class AddMemoryActivity extends AppCompatActivity {
         buttonDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //DatePicker to allow user to select date of memory
                 final Calendar c = Calendar.getInstance();
                 int year = c.get(Calendar.YEAR);
                 int month = c.get(Calendar.MONTH);
@@ -90,7 +91,7 @@ public class AddMemoryActivity extends AppCompatActivity {
 
         getLastLocation();
 
-
+        //Check that all form fields are filled to validate inputs, before adding to database
         if(!memoryName.getText().toString().equals("") && !memoryDescription.getText().toString().equals("") && !textViewSelectedDate.getText().toString().equals("UNSELECTED")){
             sqliteDB.addNewMemory(memoryName.getText().toString(), memoryDescription.getText().toString(), textViewSelectedDate.getText().toString());
             sqliteDB.addNewLocation(lastMemoryId, recentLongitude, recentLatitude);
@@ -109,6 +110,7 @@ public class AddMemoryActivity extends AppCompatActivity {
         Double longitude = null;
         Double latitude = null;
 
+        //Get last location if associated permissions are enabled
         if(checkPermissions()){
             if(isLocationEnabled()){
                 fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {

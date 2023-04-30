@@ -16,7 +16,6 @@ public class GeofenceReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        System.out.println("RAN RAN RAN");
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if(geofencingEvent.hasError()){
             String error = GeofenceStatusCodes.getStatusCodeString(geofencingEvent.getErrorCode());
@@ -24,10 +23,11 @@ public class GeofenceReceiver extends BroadcastReceiver {
             return;
         }
 
+        //Store currently triggering geofences in a list
         List<Geofence> triggeringGeofences = geofencingEvent.getTriggeringGeofences();
-        System.out.println(triggeringGeofences);
 
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
+        //Generate notification is user is dwelling in geofence area. Dwell used to avoid notification spam around geofence borders.
         if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL){
             Notification notification = new Notification(context);
 
@@ -38,16 +38,6 @@ public class GeofenceReceiver extends BroadcastReceiver {
             int triggeredGeofenceID = Integer.parseInt(triggeringGeofences.get(0).getRequestId()) + 1;
 
             notification.sendNotification(triggeredGeofenceID, "Memory Nearby", "View Memory Information");
-            System.out.println("OUTPUT: " + triggeredGeofenceID);
-
-
-
-
-
-
         }
-
-
-        Toast.makeText(context, "Geofence Accessed", Toast.LENGTH_SHORT).show();
     }
 }
