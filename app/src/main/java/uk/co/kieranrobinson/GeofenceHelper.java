@@ -47,6 +47,4 @@ public class GeofenceHelper extends ContextWrapper {
         }
 
     }
-
-
 }

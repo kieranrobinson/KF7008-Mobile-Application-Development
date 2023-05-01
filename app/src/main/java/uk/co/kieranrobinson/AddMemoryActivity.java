@@ -88,7 +88,7 @@ public class AddMemoryActivity extends AppCompatActivity {
     public void addMemory(View view){
         EditText memoryName = (EditText) findViewById(R.id.editTextMemoryName);
         EditText memoryDescription = (EditText) findViewById(R.id.editTextMemoryDescription);
-        int lastMemoryId = sqliteDB.getLastMemoryId();
+        int lastMemoryId = sqliteDB.getLastMemoryId()+1;
 
         TextView memoryNameError = findViewById(R.id.textViewTitleError);
         memoryNameError.setVisibility(View.INVISIBLE);
@@ -102,7 +102,13 @@ public class AddMemoryActivity extends AppCompatActivity {
         //Check that all form fields are filled to validate inputs, before adding to database
         if(!memoryName.getText().toString().equals("") && !memoryDescription.getText().toString().equals("") && !textViewSelectedDate.getText().toString().equals("UNSELECTED")){
             sqliteDB.addNewMemory(memoryName.getText().toString(), memoryDescription.getText().toString(), textViewSelectedDate.getText().toString());
-            sqliteDB.addNewLocation(lastMemoryId, recentLongitude, recentLatitude);
+            if(lastMemoryId > 0){
+                sqliteDB.addNewLocation(lastMemoryId, recentLongitude, recentLatitude);
+            } else {
+                sqliteDB.addNewLocation(1, recentLongitude, recentLatitude);
+            }
+
+            System.out.println("Added location at: " + lastMemoryId + recentLongitude + recentLatitude);
             finish();
         } else {
             if(memoryName.getText().toString().equals("")){

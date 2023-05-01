@@ -159,7 +159,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
 
     public int getLastMemoryId(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        int memoryID = -1;
+        int memoryID = 0;
         Cursor cursorMemoryID = sqLiteDatabase.rawQuery("SELECT memoryID FROM memory ORDER BY memoryID DESC LIMIT 1;",null);
 
         if(cursorMemoryID.getCount() > 0){
