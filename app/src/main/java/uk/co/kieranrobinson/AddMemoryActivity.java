@@ -89,6 +89,13 @@ public class AddMemoryActivity extends AppCompatActivity {
         EditText memoryDescription = (EditText) findViewById(R.id.editTextMemoryDescription);
         int lastMemoryId = sqliteDB.getLastMemoryId();
 
+        TextView memoryNameError = findViewById(R.id.textViewTitleError);
+        memoryNameError.setVisibility(View.INVISIBLE);
+        TextView memoryDescriptionError = findViewById(R.id.textViewDescriptionError);
+        memoryDescriptionError.setVisibility(View.INVISIBLE);
+        TextView memoryDateError = findViewById(R.id.textViewDateError);
+        memoryDateError.setVisibility(View.INVISIBLE);
+
         getLastLocation();
 
         //Check that all form fields are filled to validate inputs, before adding to database
@@ -97,6 +104,30 @@ public class AddMemoryActivity extends AppCompatActivity {
             sqliteDB.addNewLocation(lastMemoryId, recentLongitude, recentLatitude);
             finish();
         } else {
+            if(memoryName.getText().toString().equals("")){
+                memoryNameError.setText("Memory name cannot be empty");
+                memoryNameError.setVisibility(View.VISIBLE);
+            } else {
+                memoryNameError.setVisibility(View.INVISIBLE);
+            }
+
+
+            if(memoryDescription.getText().toString().equals("")){
+                memoryDescriptionError.setText("Memory description cannot be empty");
+                memoryDescriptionError.setVisibility(View.VISIBLE);
+            } else {
+                memoryDescriptionError.setVisibility(View.INVISIBLE);
+            }
+
+
+            if(textViewSelectedDate.getText().toString().equals("UNSELECTED")){
+                memoryDateError.setText("Memory date cannot be empty");
+                memoryDateError.setVisibility(View.VISIBLE);
+            } else {
+                memoryDateError.setVisibility(View.INVISIBLE);
+            }
+
+
             //TODO: Implement error message TextViews
             System.out.println("ERROR");
         }
