@@ -79,6 +79,7 @@ public class AddMemoryActivity extends AppCompatActivity {
                         month,
                         day
                 );
+                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                 datePickerDialog.show();
             }
         });
